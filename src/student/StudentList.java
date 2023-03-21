@@ -88,14 +88,14 @@ public class StudentList extends JDialog {
 
 	
 		scrollPane.setViewportView(tblStudent);
-		tblStudent.setModel(new DefaultTableModel(
-			new Object[][] {
-			
-			},
-			new String[] {
-				"ID", "Name", "NRC", "Email", "Phone", "Address"
-			}
-		));
+//		tblStudent.setModel(new DefaultTableModel(
+//			new Object[][] {
+//			
+//			},
+//			new String[] {
+//				"ID", "Name", "NRC", "Email", "Phone", "Address"
+//			}
+//		));
 
 		JLabel lblNewLabel = new JLabel("Student List");
 		lblNewLabel.setBounds(301, 11, 170, 24);
