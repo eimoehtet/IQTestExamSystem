@@ -120,9 +120,7 @@ public class StudentList extends JDialog {
 			            st[3]=email;
 			            st[4]=phone;
 			            st[5]=address;
-//			            for(int i=0;i<6;i++) {
-//			            	System.out.println(st[i]);
-//			            }
+
 			        }
 			   }
 		});

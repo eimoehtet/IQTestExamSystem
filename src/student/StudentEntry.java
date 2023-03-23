@@ -85,15 +85,14 @@ public class StudentEntry extends JDialog {
 		panel.add(lblNewLabel_5);
 
 		JLabel lblNewLabel_6 = new JLabel("Student Registeration");
-		lblNewLabel_6.setFont(new Font("Times New Roman", Font.BOLD, 20));
 		lblNewLabel_6.setBounds(159, 0, 208, 27);
+		lblNewLabel_6.setFont(new Font("Times New Roman", Font.BOLD, 20));
 		panel.add(lblNewLabel_6);
 
 		txtStudentName = new JTextField();
 		txtStudentName.setBounds(281, 71, 182, 26);
 		panel.add(txtStudentName);
 		txtStudentName.setColumns(10);
-
 		lblStudentId.setBounds(281, 38, 182, 25);
 		panel.add(lblStudentId);
 
@@ -113,8 +112,8 @@ public class StudentEntry extends JDialog {
 		txtAddress.setColumns(10);
 
 		txtEmail = new JTextField();
-		txtEmail.setColumns(10);
 		txtEmail.setBounds(281, 142, 182, 26);
+		txtEmail.setColumns(10);
 		panel.add(txtEmail);
 
 		JButton btnSave = new JButton("Save");

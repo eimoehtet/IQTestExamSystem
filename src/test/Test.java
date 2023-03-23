@@ -13,6 +13,7 @@ import Pack.DBConnection;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import java.awt.Font;
 import java.sql.Connection;
@@ -32,6 +33,7 @@ public class Test extends JFrame {
 
 	private JPanel contentPane;
 	JTextArea textArea = new JTextArea();
+	private ButtonGroup bg=new ButtonGroup();
 	JRadioButton rdo1 = new JRadioButton("");
 	JRadioButton rdo2 = new JRadioButton("");
 	JRadioButton rdo3 = new JRadioButton("");
@@ -43,7 +45,11 @@ public class Test extends JFrame {
 	DBConnection connect = new DBConnection();
 	DefaultTableModel dtm=new DefaultTableModel();
 	JPanel testpanel = new JPanel();
-	 int i=0;
+	JLabel lblNo = new JLabel("New label");
+	int i=0;
+	 public String useranswer=null;
+	 public  int mark=0;
+	 public String correctanswer;
 
 	/**
 	 * Launch the application.
@@ -73,7 +79,7 @@ public class Test extends JFrame {
 			Statement stmt=conn.createStatement();
 			String str="Select * from question where qtId='QT-0000001'";
 			ResultSet rs=stmt.executeQuery(str);
-			String question[]=new String[6];
+			String question[]=new String[7];
 			
 				while(rs.next()) {
 					question[0]=rs.getString(3);
@@ -82,6 +88,7 @@ public class Test extends JFrame {
 					question[3]=rs.getString(6);
 					question[4]=rs.getString(7);
 					question[5]=rs.getString(8);
+					question[6]=rs.getString(1);
 					dtm.addRow(question);
 					
 					
@@ -124,15 +131,17 @@ public class Test extends JFrame {
 			Statement stmt=conn.createStatement();
 			String str="Select * from question where qtId='QT-0000003'";
 			ResultSet rs=stmt.executeQuery(str);
-			String question[]=new String[6];
+			String question[]=new String[8];
 			
 				while(rs.next()) {
-					question[0]=rs.getString(3);
-					question[1]=rs.getString(4);
-					question[2]=rs.getString(5);
-					question[3]=rs.getString(6);
-					question[4]=rs.getString(7);
-					question[5]=rs.getString(8);
+					question[0]=rs.getString(1);
+					question[1]=rs.getString(2);
+					question[2]=rs.getString(3);
+					question[3]=rs.getString(4);
+					question[4]=rs.getString(5);
+					question[5]=rs.getString(6);
+					question[6]=rs.getString(7);
+					question[7]=rs.getString(8);
 					dtm.addRow(question);
 					
 					
@@ -144,19 +153,21 @@ public class Test extends JFrame {
 		}
 	}
 	public void createTable() {
+		
 		dtm.addColumn("Question");
 		dtm.addColumn("Option 1");
 		dtm.addColumn("Option 2");
 		dtm.addColumn("Option 3");
 		dtm.addColumn("Option 4");
 		dtm.addColumn("Answer");
+		dtm.addColumn("ID");
 	
 	}
 	public Test() {
 		
 		try {
 			conn=DBConnection.GetMySQLConnection();
-			//loadQuestions();
+			
 		}catch(Exception e) {
 			System.out.println(e);
 		}
@@ -225,17 +236,45 @@ public class Test extends JFrame {
 		textArea.setBounds(22, 40, 565, 111);
 		testpanel.add(textArea);
 		
+		bg.add(rdo1);
+		bg.add(rdo2);
+		bg.add(rdo3);
+		bg.add(rdo4);
+		rdo1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				useranswer=rdo1.getText();
+				checkAnswer();
+			}
+		});
 		
 		rdo1.setBounds(22, 158, 407, 23);
 		testpanel.add(rdo1);
+		rdo2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				useranswer=rdo2.getText();
+				checkAnswer();
+			}
+		});
 		
 		
 		rdo2.setBounds(22, 208, 407, 23);
 		testpanel.add(rdo2);
+		rdo3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				useranswer=rdo3.getText();
+				checkAnswer();
+			}
+		});
 		
 		
 		rdo3.setBounds(21, 255, 408, 23);
 		testpanel.add(rdo3);
+		rdo4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				useranswer=rdo4.getText();
+				checkAnswer();
+			}
+		});
 		
 		
 		rdo4.setBounds(22, 295, 408, 23);
@@ -244,20 +283,20 @@ public class Test extends JFrame {
 		//btnNext.setVisible(false);
 		btnNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+					bg.clearSelection();
 							if(i<dtm.getRowCount())	{
-								textArea.setText(dtm.getValueAt(i, 0).toString());
-								rdo1.setText(dtm.getValueAt(i, 1).toString());
-								rdo2.setText(dtm.getValueAt(i, 2).toString());
-								rdo3.setText(dtm.getValueAt(i, 3).toString());
-								rdo4.setText(dtm.getValueAt(i, 4).toString());
+								textArea.setText(dtm.getValueAt(i, 2).toString());
+								rdo1.setText(dtm.getValueAt(i, 3).toString());
+								rdo2.setText(dtm.getValueAt(i, 4).toString());
+								rdo3.setText(dtm.getValueAt(i, 5).toString());
+								rdo4.setText(dtm.getValueAt(i, 6).toString());
+								correctanswer=dtm.getValueAt(i, 7).toString();
 								i++;
 							}else {
-								JOptionPane.showMessageDialog(null, "You answerd all questions");
+								JOptionPane.showMessageDialog(null, "Your mark is "+mark);
 							}
-							
-							
-								
+						//checkAnswer();
+						
 		}
 		});
 		btnNext.setBounds(459, 331, 89, 30);
@@ -268,12 +307,26 @@ public class Test extends JFrame {
 		lblNewLabel.setBounds(25, 11, 32, 23);
 		testpanel.add(lblNewLabel);
 		
-		JLabel lblNo = new JLabel("New label");
-		lblNo.setBounds(69, 16, 46, 14);
+		
+		lblNo.setBounds(69, 16, 104, 14);
 		testpanel.add(lblNo);
 		
 		
 		createTable();		
 		
 	}
+	
+	public void checkAnswer() {
+	
+		
+
+		System.out.println("User Ans"+useranswer);
+		System.out.println("Correct Ans"+correctanswer);
+		if(useranswer !=null && useranswer.equals(correctanswer)) {
+			mark+=1;
+		}
+	System.out.println("mark="+mark);
+				
+	}
+	
 }
