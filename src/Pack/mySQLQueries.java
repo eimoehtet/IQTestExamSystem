@@ -54,6 +54,8 @@ public class mySQLQueries {
 					+ "','" + data[4] + "','" + data[5] + "')";
 		 else if(tblName.equals("QuestionType"))
 	            query1="Insert Into QuestionType Values('" + data[0] + "','" + data[1] + "')";
+		 else if(tblName.equals("testDetail"))
+			 query1="Insert Into testDetail Values('" + data[0] + "','" + data[1] + "','"+ data[5] +"')";
 		 else if(tblName.equals("Question"))
 	            query1="Insert Into Question Values('" + data[0] + "','" + data[1] + "','" + data[2] + "','" + data[3] + "','" + data[4] + "','" + data[5] + "','"+data[6]+"','"+data[7]+"')";
 		try {

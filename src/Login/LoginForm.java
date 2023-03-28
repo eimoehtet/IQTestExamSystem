@@ -57,6 +57,7 @@ public class LoginForm extends JDialog {
 	public LoginForm() {
 		try {
 			conn=DBConnection.GetMySQLConnection();
+			
 		}catch(Exception e) {
 			System.out.println(e);
 		}

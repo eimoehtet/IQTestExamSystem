@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
 public class Home extends JFrame {
@@ -21,6 +22,10 @@ public class Home extends JFrame {
 	JLabel lblId = new JLabel("New label");
 	JLabel lblNrc = new JLabel("New label");
 
+	public JButton btnP1 = new JButton("Part1");
+	public static boolean plClick=false;
+	public static boolean p2Click=false;
+	public static boolean p3Click=false;
 	/**
 	 * Launch the application.
 	 */
@@ -45,9 +50,7 @@ public class Home extends JFrame {
 	public Home() {
 		
 		LoginForm form=new LoginForm();
-		for(int i=0;i<form.data.length;i++) {
-			System.out.println(form.data[i]);
-		}
+		
 		if(!form.data.equals(null)) {
 			lblId.setText(form.data[0].toString());;
 			lblNrc.setText(form.data[1].toString());
@@ -67,21 +70,38 @@ public class Home extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		JButton btnP1 = new JButton("Part1");
 		btnP1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				plClick=true;
 				Test test=new Test();
 				test.show();
+				
 			}
 		});
 		btnP1.setBounds(74, 203, 89, 23);
 		panel.add(btnP1);
 		
 		JButton btnP2 = new JButton("Part2");
+		btnP2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				p2Click=true;
+				Test test=new Test();
+				test.show();
+				
+			}
+		});
 		btnP2.setBounds(250, 203, 89, 23);
 		panel.add(btnP2);
 		
 		JButton btnP3 = new JButton("Part3");
+		btnP3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				p3Click=true;
+				Test test=new Test();
+				test.show();
+
+			}
+		});
 		btnP3.setBounds(436, 203, 89, 23);
 		panel.add(btnP3);
 		
