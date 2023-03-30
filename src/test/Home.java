@@ -73,6 +73,8 @@ public class Home extends JFrame {
 		btnP1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				plClick=true;
+				p2Click=false;
+				p3Click=false;
 				Test test=new Test();
 				test.show();
 				
@@ -85,6 +87,8 @@ public class Home extends JFrame {
 		btnP2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				p2Click=true;
+				plClick=false;
+				p3Click=false;
 				Test test=new Test();
 				test.show();
 				
@@ -96,7 +100,9 @@ public class Home extends JFrame {
 		JButton btnP3 = new JButton("Part3");
 		btnP3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				plClick=false;
 				p3Click=true;
+				p2Click=false;
 				Test test=new Test();
 				test.show();
 

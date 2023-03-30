@@ -60,5 +60,9 @@ public class submitframe extends JFrame {
 		JButton btnNewButton_1 = new JButton("Submit");
 		btnNewButton_1.setBounds(408, 96, 145, 35);
 		panel.add(btnNewButton_1);
+		
+		JButton btnSubmit = new JButton("Submit");
+		btnSubmit.setBounds(637, 228, 89, 23);
+		panel.add(btnSubmit);
 	}
 }

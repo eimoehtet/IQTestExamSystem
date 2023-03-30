@@ -114,6 +114,7 @@ public class LoginForm extends JDialog {
 					if(rs.next()) {
 						data[0]=rs.getString(1);
 						data[1]=rs.getString(2);
+						
 						JOptionPane.showMessageDialog(null,"You have successfully logged in");
 						dispose();
 						Home hm=new Home();
