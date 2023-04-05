@@ -18,6 +18,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import javax.swing.JTextField;
+import java.awt.Color;
 
 public class QuestionTypeEntry extends JDialog {
 
@@ -47,12 +48,14 @@ public class QuestionTypeEntry extends JDialog {
 		AutoID();
 		setBounds(100, 100, 462, 319);
 		getContentPane().setLayout(null);
+		contentPanel.setBackground(new Color(250, 250, 210));
 		contentPanel.setBounds(0, 0, 446, 280);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel);
 		contentPanel.setLayout(null);
 		
 		JPanel panel = new JPanel();
+		panel.setBackground(new Color(250, 250, 210));
 		panel.setBounds(10, 11, 426, 189);
 		contentPanel.add(panel);
 		panel.setLayout(null);

@@ -22,6 +22,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
 
 public class StudentUpdate extends JDialog {
 
@@ -55,40 +56,34 @@ public class StudentUpdate extends JDialog {
 	 * @throws ClassNotFoundException 
 	 */
 	public void getStudent() {
-		try {
-			StudentList list=new StudentList();
-			for(int i=0;i<6;i++) {
-				System.out.println(list.st[i]);
-			}
-			lblStudentId.setText(list.st[0]);
-			txtStudentName.setText(list.st[1]);
-			txtNrc.setText(list.st[2]);
-			txtEmail.setText(list.st[3]);
-			txtPhone.setText(list.st[4]);
-			txtAddress.setText(list.st[5]);
-			
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		StuListPanel list=new StuListPanel();
+		for(int i=0;i<6;i++) {
+			System.out.println(list.st[i]);
 		}
+		lblStudentId.setText(list.st[0]);
+		txtStudentName.setText(list.st[1]);
+		txtNrc.setText(list.st[2]);
+		txtEmail.setText(list.st[3]);
+		txtPhone.setText(list.st[4]);
+		txtAddress.setText(list.st[5]);
 		
 	}
    
 	public StudentUpdate() {
+		getContentPane().setBackground(new Color(250, 250, 210));
 		
 		getStudent();
 		
 		setBounds(100, 100, 567, 381);
 		getContentPane().setLayout(null);
+		contentPanel.setBackground(new Color(250, 250, 210));
 		contentPanel.setBounds(0, 0, 544, 324);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel);
 		contentPanel.setLayout(null);
 
 		JPanel panel = new JPanel();
+		panel.setBackground(new Color(250, 250, 210));
 		panel.setBounds(10, 0, 524, 264);
 		contentPanel.add(panel);
 		panel.setLayout(null);

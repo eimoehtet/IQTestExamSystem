@@ -17,6 +17,7 @@ import javax.swing.JTextField;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
 
 public class StudentEntry extends JDialog {
 
@@ -47,21 +48,24 @@ public class StudentEntry extends JDialog {
 	 * Create the dialog.
 	 */
 	public StudentEntry() {
+		getContentPane().setBackground(new Color(250, 250, 210));
 		AutoID();
 		setBounds(100, 100, 567, 381);
 		getContentPane().setLayout(null);
+		contentPanel.setBackground(new Color(250, 250, 210));
 		contentPanel.setBounds(0, 0, 544, 324);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel);
 		contentPanel.setLayout(null);
 
 		JPanel panel = new JPanel();
+		panel.setBackground(new Color(250, 250, 210));
 		panel.setBounds(10, 0, 524, 264);
 		contentPanel.add(panel);
 		panel.setLayout(null);
 
 		JLabel lblNewLabel = new JLabel("Student ID:");
-		lblNewLabel.setBounds(21, 49, 113, 14);
+		lblNewLabel.setBounds(21, 49, 143, 14);
 		panel.add(lblNewLabel);
 
 		JLabel lblNewLabel_1 = new JLabel("Student Name:");
@@ -73,15 +77,15 @@ public class StudentEntry extends JDialog {
 		panel.add(lblNewLabel_2);
 
 		JLabel lblNewLabel_3 = new JLabel("Email:");
-		lblNewLabel_3.setBounds(21, 145, 46, 14);
+		lblNewLabel_3.setBounds(21, 145, 113, 14);
 		panel.add(lblNewLabel_3);
 
 		JLabel lblNewLabel_4 = new JLabel("Phone Number:");
-		lblNewLabel_4.setBounds(21, 179, 80, 14);
+		lblNewLabel_4.setBounds(21, 179, 143, 14);
 		panel.add(lblNewLabel_4);
 
 		JLabel lblNewLabel_5 = new JLabel("Address:");
-		lblNewLabel_5.setBounds(21, 218, 46, 14);
+		lblNewLabel_5.setBounds(21, 218, 113, 14);
 		panel.add(lblNewLabel_5);
 
 		JLabel lblNewLabel_6 = new JLabel("Student Registeration");

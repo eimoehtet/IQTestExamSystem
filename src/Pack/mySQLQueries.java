@@ -196,27 +196,25 @@ public class mySQLQueries {
             return false;
         }
     }
-//
-//    public void deleteRecord(String tblName,String id)
-//    {
-//        int returnvalue=0;
-//
-//        if(tblName.equals("Supplier"))
-//            query1="Delete From Supplier Where SupplierID='"+ id +"'";
-//        else if(tblName.equals("Customer"))
-//            query1="Delete From Customer Where CustomerID='"+ id +"'";
-//
-//        try
-//        {
-//            stmt=con.createStatement();
-//            returnvalue=stmt.executeUpdate(query1);
-//            if(returnvalue>0)
-//                JOptionPane.showMessageDialog(null, "The record is deleted successfully in " + tblName + " table");
-//        }
-//        catch(Exception e)
-//        {
-//            JOptionPane.showMessageDialog(null, e.toString());
-//        }
-//
-//    }
+
+    public void deleteRecord(String tblName,String id)
+    {
+        int returnvalue=0;
+
+        if(tblName.equals("Student"))
+            query1="Delete From Student Where studentId='"+ id +"'";
+       
+        try
+        {
+            stmt=con.createStatement();
+            returnvalue=stmt.executeUpdate(query1);
+            if(returnvalue>0)
+                JOptionPane.showMessageDialog(null, "The record is deleted successfully in " + tblName + " table");
+        }
+        catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(null, e.toString());
+        }
+
+    }
 }

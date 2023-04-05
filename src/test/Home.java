@@ -7,25 +7,38 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import Login.LoginForm;
+import Pack.DBConnection;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
 
 public class Home extends JFrame {
 
 	private JPanel contentPane;
+	JPanel panel = new JPanel();
 	JLabel lblId = new JLabel("New label");
 	JLabel lblNrc = new JLabel("New label");
-
-	public JButton btnP1 = new JButton("Part1");
+	public JButton btnP1 = new JButton("PART I");
+	JButton btnP2 = new JButton("PART II");
+	JButton btnP3 = new JButton("PART III");
 	public static boolean plClick=false;
 	public static boolean p2Click=false;
 	public static boolean p3Click=false;
+	ResultSet rs;
+	Connection conn=null;
+	DBConnection connect = new DBConnection();
+	private final JLabel lblNewLabel = new JLabel("Easy Quick Calculation");
+	private final JLabel lblNewLabel_1 = new JLabel("Thinking problems");
+	private final JLabel lblNewLabel_3 = new JLabel("Check your Programming Level");
 	/**
 	 * Launch the application.
 	 */
@@ -48,27 +61,38 @@ public class Home extends JFrame {
 	 */
 	
 	public Home() {
+		setBackground(new Color(250, 250, 210));
 		
 		LoginForm form=new LoginForm();
-		
+		try {
+			conn=DBConnection.GetMySQLConnection();
+			
+		}catch(Exception e) {
+			System.out.println(e);
+		}
 		if(!form.data.equals(null)) {
 			lblId.setText(form.data[0].toString());;
 			lblNrc.setText(form.data[1].toString());
+			checkExistStudent();
 		}
 		
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 698, 392);
+		setBounds(100, 100, 1200, 704);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(250, 250, 210));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		contentPane.setMaximumSize(getMaximumSize());
 		
-		JPanel panel = new JPanel();
-		panel.setBounds(23, 11, 649, 319);
+		this.setExtendedState(MAXIMIZED_BOTH);
+		
+		panel.setBackground(new Color(250, 250, 210));
+	
+		panel.setBounds(66, 90, 499, 319);
 		contentPane.add(panel);
-		panel.setLayout(null);
+		btnP1.setBounds(27, 31, 132, 50);
 		
 		btnP1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -80,10 +104,11 @@ public class Home extends JFrame {
 				
 			}
 		});
-		btnP1.setBounds(74, 203, 89, 23);
+		panel.setLayout(null);
 		panel.add(btnP1);
+		btnP2.setBounds(27, 102, 132, 50);
 		
-		JButton btnP2 = new JButton("Part2");
+		
 		btnP2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				p2Click=true;
@@ -94,10 +119,10 @@ public class Home extends JFrame {
 				
 			}
 		});
-		btnP2.setBounds(250, 203, 89, 23);
 		panel.add(btnP2);
+		btnP3.setBounds(27, 171, 132, 50);
 		
-		JButton btnP3 = new JButton("Part3");
+		
 		btnP3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				plClick=false;
@@ -108,30 +133,56 @@ public class Home extends JFrame {
 
 			}
 		});
-		btnP3.setBounds(436, 203, 89, 23);
 		panel.add(btnP3);
+		lblNewLabel.setBounds(184, 42, 170, 21);
 		
-		JLabel lblNewLabel = new JLabel("Student ID:");
-		lblNewLabel.setBounds(74, 32, 77, 35);
 		panel.add(lblNewLabel);
+		lblNewLabel_1.setBounds(184, 120, 150, 14);
 		
-		JLabel lblNewLabel_1 = new JLabel("NRC No");
-		lblNewLabel_1.setBounds(387, 32, 77, 35);
 		panel.add(lblNewLabel_1);
+		lblNewLabel_3.setBounds(184, 189, 206, 14);
 		
+		panel.add(lblNewLabel_3);
 		
-		lblId.setBounds(185, 32, 83, 35);
-		panel.add(lblId);
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(0, 0, 0));
+		panel_1.setBounds(0, 0, 1360, 42);
+		contentPane.add(panel_1);
+		panel_1.setLayout(null);
 		
-		
-		lblNrc.setBounds(484, 37, 131, 24);
-		panel.add(lblNrc);
-		
-		JLabel lblNewLabel_4 = new JLabel("Welcome!");
-		lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_4.setFont(new Font("Times New Roman", Font.BOLD, 20));
-		lblNewLabel_4.setBounds(207, 126, 146, 14);
-		panel.add(lblNewLabel_4);
+		JLabel lblNewLabel_2 = new JLabel("IQ Test Exam System");
+		lblNewLabel_2.setFont(new Font("Times New Roman", Font.BOLD, 18));
+		lblNewLabel_2.setForeground(new Color(184, 134, 11));
+		lblNewLabel_2.setBounds(568, 5, 185, 26);
+		panel_1.add(lblNewLabel_2);
+		lblId.setForeground(new Color(255, 250, 250));
+		lblId.setBounds(933, 3, 83, 35);
+		panel_1.add(lblId);
+		lblNrc.setForeground(new Color(255, 250, 250));
+		lblNrc.setBounds(1046, 8, 131, 24);
+		panel_1.add(lblNrc);
 	}
-
+	public void checkExistStudent() {
+		try {
+			Statement stmt=conn.createStatement();
+			String sql="select * from testresult where stuId= '"+lblId.getText()+"'";
+			ResultSet rs=stmt.executeQuery(sql);
+			if(rs.next()) {
+				
+				btnP1.setEnabled(false);
+				btnP2.setEnabled(false);
+				btnP3.setEnabled(false);
+				JLabel lbl = new JLabel("You have already answered!");
+				lbl.setHorizontalAlignment(SwingConstants.CENTER);
+				lbl.setFont(new Font("Times New Roman", Font.BOLD, 20));
+				lbl.setBounds(207, 126, 300, 30);
+				panel.add(lbl);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
 }

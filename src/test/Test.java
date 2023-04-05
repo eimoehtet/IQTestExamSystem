@@ -33,6 +33,8 @@ import java.util.List;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.JRadioButton;
+import javax.swing.JRootPane;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
@@ -205,6 +207,8 @@ public class Test extends JFrame {
 				i=0;
 			}
 		});
+		setUndecorated(true);
+		getRootPane().setWindowDecorationStyle(JRootPane.NONE);
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
@@ -213,14 +217,16 @@ public class Test extends JFrame {
 			Home home = new Home();
 
 			if (home.plClick) {
-
+				i=0;
 				loadP1Questions();
 				increase();
 
 			} else if (home.p3Click) {
+				i=0;
 				loadPart3Questions();
 				increase();
 			} else if (home.p2Click) {
+				i=0;
 				loadPart2Questions();
 				increase();
 			}
@@ -228,7 +234,7 @@ public class Test extends JFrame {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-		setBounds(100, 100, 801, 433);
+		setBounds(500, 100, 801, 433);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -321,38 +327,37 @@ public class Test extends JFrame {
 			}
 		});
 		bpanel.setLayout(null);
-		btnPre.setBounds(235, 5, 73, 23);
+		btnPre.setBounds(10, 5, 86, 23);
 
 		bpanel.add(btnPre);
 
 		lblId.setBounds(331, 11, 161, 18);
 		testpanel.add(lblId);
-		btnNext.setBounds(349, 5, 73, 23);
-
-		btnNext.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+				btnReNext.setBounds(626, 5, 86, 23);
+				bpanel.add(btnReNext);
+						btnNext.setBounds(626, 5, 86, 23);
+						bpanel.add(btnNext);
+				
+						btnNext.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								btnReNext.setVisible(false);
+								isAnswered();
+								bg.clearSelection();
+								submitAnswered();
+								increase();
+				
+							}
+						});
 				btnReNext.setVisible(false);
-				isAnswered();
-				bg.clearSelection();
-				submitAnswered();
-				increase();
+				btnReNext.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
 
-			}
-		});
-		btnReNext.setBounds(349, 5, 73, 23);
-		btnReNext.setVisible(false);
-		btnReNext.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+						getUserAns();
+						updateAnswer();
+						increase();
 
-				getUserAns();
-				updateAnswer();
-				increase();
-
-			}
-		});
-
-		bpanel.add(btnNext);
-		bpanel.add(btnReNext);
+					}
+				});
 		
 		
 		createTable();

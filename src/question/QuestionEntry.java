@@ -19,6 +19,7 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextArea;
+import java.awt.Color;
 
 public class QuestionEntry extends JDialog {
 
@@ -49,16 +50,20 @@ public class QuestionEntry extends JDialog {
 	 * Create the dialog.
 	 */
 	public QuestionEntry() {
+		getContentPane().setBackground(new Color(250, 250, 210));
+		setBackground(new Color(250, 250, 210));
 		AutoID();
 		fillType();
 		setBounds(100, 100, 606, 410);
 		getContentPane().setLayout(null);
+		contentPanel.setBackground(new Color(250, 250, 210));
 		contentPanel.setBounds(0, 0, 565, 306);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel);
 		contentPanel.setLayout(null);
 		{
 			JPanel panel = new JPanel();
+			panel.setBackground(new Color(250, 250, 210));
 			panel.setBounds(38, 0, 517, 316);
 			contentPanel.add(panel);
 			panel.setLayout(null);
