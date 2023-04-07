@@ -50,7 +50,7 @@ public class StudentEntry extends JDialog {
 	public StudentEntry() {
 		getContentPane().setBackground(new Color(250, 250, 210));
 		AutoID();
-		setBounds(100, 100, 567, 381);
+		setBounds(400, 90, 567, 381);
 		getContentPane().setLayout(null);
 		contentPanel.setBackground(new Color(250, 250, 210));
 		contentPanel.setBounds(0, 0, 544, 324);

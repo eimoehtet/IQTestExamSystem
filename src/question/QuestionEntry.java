@@ -20,6 +20,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextArea;
 import java.awt.Color;
+import javax.swing.SwingConstants;
 
 public class QuestionEntry extends JDialog {
 
@@ -54,56 +55,57 @@ public class QuestionEntry extends JDialog {
 		setBackground(new Color(250, 250, 210));
 		AutoID();
 		fillType();
-		setBounds(100, 100, 606, 410);
+		setBounds(400, 90, 688, 500);
 		getContentPane().setLayout(null);
 		contentPanel.setBackground(new Color(250, 250, 210));
-		contentPanel.setBounds(0, 0, 565, 306);
+		contentPanel.setBounds(0, 0, 662, 390);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel);
 		contentPanel.setLayout(null);
 		{
 			JPanel panel = new JPanel();
 			panel.setBackground(new Color(250, 250, 210));
-			panel.setBounds(38, 0, 517, 316);
+			panel.setBounds(10, 0, 662, 379);
 			contentPanel.add(panel);
 			panel.setLayout(null);
 			{
 				JLabel lblNewLabel = new JLabel("Question Entry");
+				lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 				lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
-				lblNewLabel.setBounds(142, 0, 209, 26);
+				lblNewLabel.setBounds(185, 0, 209, 26);
 				panel.add(lblNewLabel);
 			}
 			
 			JLabel lblNewLabel_1 = new JLabel("Question ID:");
-			lblNewLabel_1.setBounds(22, 30, 111, 27);
+			lblNewLabel_1.setBounds(43, 42, 111, 27);
 			panel.add(lblNewLabel_1);
 			
 			JLabel lblNewLabel_2 = new JLabel("Question Type ID:");
-			lblNewLabel_2.setBounds(22, 92, 111, 26);
+			lblNewLabel_2.setBounds(43, 148, 111, 26);
 			panel.add(lblNewLabel_2);
 			
 			JLabel lblNewLabel_3 = new JLabel("Option 1");
-			lblNewLabel_3.setBounds(22, 130, 111, 24);
+			lblNewLabel_3.setBounds(43, 188, 111, 24);
 			panel.add(lblNewLabel_3);
 			
 			JLabel lblNewLabel_4 = new JLabel("Option 2");
-			lblNewLabel_4.setBounds(22, 165, 111, 26);
+			lblNewLabel_4.setBounds(43, 229, 111, 26);
 			panel.add(lblNewLabel_4);
 			
 			JLabel lblNewLabel_5 = new JLabel("Option 3");
-			lblNewLabel_5.setBounds(22, 202, 111, 23);
+			lblNewLabel_5.setBounds(43, 266, 111, 23);
 			panel.add(lblNewLabel_5);
 			
 			JLabel lblNewLabel_6 = new JLabel("Option 4");
-			lblNewLabel_6.setBounds(22, 236, 111, 27);
+			lblNewLabel_6.setBounds(45, 300, 111, 27);
 			panel.add(lblNewLabel_6);
 			
 			JLabel lblNewLabel_7 = new JLabel("Answer");
-			lblNewLabel_7.setBounds(22, 272, 94, 19);
+			lblNewLabel_7.setBounds(45, 338, 94, 19);
 			panel.add(lblNewLabel_7);
 			
 			
-			lblQId.setBounds(259, 30, 237, 27);
+			lblQId.setBounds(347, 42, 237, 27);
 			panel.add(lblQId);
 			cboTypeId.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -112,40 +114,40 @@ public class QuestionEntry extends JDialog {
 			});
 			
 		
-			cboTypeId.setBounds(259, 90, 237, 30);
+			cboTypeId.setBounds(285, 146, 299, 30);
 			panel.add(cboTypeId);
 			
 			txtOpt1 = new JTextField();
-			txtOpt1.setBounds(259, 129, 237, 26);
+			txtOpt1.setBounds(285, 187, 299, 26);
 			panel.add(txtOpt1);
 			txtOpt1.setColumns(10);
 			
 			txtOpt2 = new JTextField();
-			txtOpt2.setBounds(259, 165, 237, 26);
+			txtOpt2.setBounds(285, 224, 299, 26);
 			panel.add(txtOpt2);
 			txtOpt2.setColumns(10);
 			
 			txtOpt3 = new JTextField();
-			txtOpt3.setBounds(259, 200, 237, 26);
+			txtOpt3.setBounds(285, 261, 299, 26);
 			panel.add(txtOpt3);
 			txtOpt3.setColumns(10);
 			
 			txtOpt4 = new JTextField();
-			txtOpt4.setBounds(259, 236, 237, 26);
+			txtOpt4.setBounds(285, 298, 299, 26);
 			panel.add(txtOpt4);
 			txtOpt4.setColumns(10);
 			
 			txtAnswer = new JTextField();
-			txtAnswer.setBounds(259, 269, 237, 25);
+			txtAnswer.setBounds(285, 335, 299, 25);
 			panel.add(txtAnswer);
 			txtAnswer.setColumns(10);
 			
 			JLabel lblNewLabel_8 = new JLabel("Question:");
-			lblNewLabel_8.setBounds(22, 67, 74, 14);
+			lblNewLabel_8.setBounds(46, 96, 74, 14);
 			panel.add(lblNewLabel_8);
 			
 			
-			textArea.setBounds(259, 57, 237, 26);
+			textArea.setBounds(285, 69, 367, 66);
 			panel.add(textArea);
 		}
 		
@@ -202,7 +204,7 @@ public class QuestionEntry extends JDialog {
 			
 		});
 		
-		btnSave.setBounds(61, 324, 89, 36);
+		btnSave.setBounds(59, 401, 89, 36);
 		getContentPane().add(btnSave);
 		
 		JButton btnClose = new JButton("Cancel");
@@ -211,7 +213,7 @@ public class QuestionEntry extends JDialog {
 				clear();
 			}
 		});
-		btnClose.setBounds(257, 324, 89, 36);
+		btnClose.setBounds(254, 401, 89, 36);
 		getContentPane().add(btnClose);
 		
 		JButton btnCancel = new JButton("Close");
@@ -222,7 +224,7 @@ public class QuestionEntry extends JDialog {
 						dispose();
 			}
 		});
-		btnCancel.setBounds(476, 324, 89, 36);
+		btnCancel.setBounds(482, 401, 89, 36);
 		getContentPane().add(btnCancel);
 	}
 	private void AutoID() {

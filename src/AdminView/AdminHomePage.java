@@ -19,9 +19,11 @@ import java.awt.ScrollPane;
 
 import javax.swing.JScrollPane;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.ImageIcon;
 
 public class AdminHomePage extends JFrame {
 
@@ -33,7 +35,7 @@ public class AdminHomePage extends JFrame {
 	QuestionPanel qPanel=new QuestionPanel();
 	DashboardPanel dashboard=new DashboardPanel();
 	JPanel panel_2 = new JPanel();
-	JLabel lblAdmin = new JLabel("New label");
+	JLabel lblAdmin = new JLabel("");
 	AdminLogin form=new AdminLogin();
 	/**
 	 * Launch the application.
@@ -199,6 +201,25 @@ public class AdminHomePage extends JFrame {
 		btnDashboard.setBounds(0, 1, 255, 50);
 		panel.add(btnDashboard);
 		
+		JButton btnLogout = new JButton("Logout");
+		btnLogout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(JOptionPane.showConfirmDialog(null,"Are you sure you want to exit?","Confirm exiting",
+						JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE)==JOptionPane.YES_OPTION) {
+					dispose();
+					form.show();
+				}
+					
+				
+						
+			}
+		});
+		btnLogout.setForeground(new Color(255, 250, 250));
+		btnLogout.setFont(new Font("Times New Roman", Font.BOLD, 14));
+		btnLogout.setBackground(new Color(184, 134, 11));
+		btnLogout.setBounds(0, 241, 255, 50);
+		panel.add(btnLogout);
+		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(SystemColor.windowText);
 		panel_1.setBounds(0, 0, 1364, 55);
@@ -212,8 +233,9 @@ public class AdminHomePage extends JFrame {
 		lblNewLabel.setForeground(new Color(218, 165, 32));
 		lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 24));
 		panel_1.add(lblNewLabel);
+		lblAdmin.setIcon(new ImageIcon(AdminHomePage.class.getResource("/AdminView/administrator-female.png")));
 		lblAdmin.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblAdmin.setBounds(1098, 24, 91, 14);
+		lblAdmin.setBounds(1200, 11, 115, 44);
 		
 		
 		lblAdmin.setForeground(new Color(255, 250, 250));

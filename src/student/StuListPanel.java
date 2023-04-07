@@ -147,7 +147,7 @@ public class StuListPanel extends JPanel {
 		add(btnDelete);
 		
 		JButton btnRefresh = new JButton("Refresh");
-		btnRefresh.setBackground(new Color(144, 238, 144));
+		btnRefresh.setBackground(new Color(50, 205, 50));
 		btnRefresh.setForeground(new Color(255, 250, 250));
 		btnRefresh.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

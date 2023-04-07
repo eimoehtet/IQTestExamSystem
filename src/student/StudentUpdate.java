@@ -74,7 +74,7 @@ public class StudentUpdate extends JDialog {
 		
 		getStudent();
 		
-		setBounds(100, 100, 567, 381);
+		setBounds(400, 90, 567, 381);
 		getContentPane().setLayout(null);
 		contentPanel.setBackground(new Color(250, 250, 210));
 		contentPanel.setBounds(0, 0, 544, 324);
@@ -105,11 +105,11 @@ public class StudentUpdate extends JDialog {
 		panel.add(lblNewLabel_3);
 
 		JLabel lblNewLabel_4 = new JLabel("Phone Number:");
-		lblNewLabel_4.setBounds(21, 179, 80, 14);
+		lblNewLabel_4.setBounds(21, 179, 127, 14);
 		panel.add(lblNewLabel_4);
 
 		JLabel lblNewLabel_5 = new JLabel("Address:");
-		lblNewLabel_5.setBounds(21, 218, 46, 14);
+		lblNewLabel_5.setBounds(21, 218, 101, 14);
 		panel.add(lblNewLabel_5);
 
 		JLabel lblNewLabel_6 = new JLabel("Student Update Form");

@@ -46,7 +46,7 @@ public class QuestionTypeEntry extends JDialog {
 	 */
 	public QuestionTypeEntry() {
 		AutoID();
-		setBounds(100, 100, 462, 319);
+		setBounds(400, 90, 462, 319);
 		getContentPane().setLayout(null);
 		contentPanel.setBackground(new Color(250, 250, 210));
 		contentPanel.setBounds(0, 0, 446, 280);

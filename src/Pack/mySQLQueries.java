@@ -36,7 +36,7 @@ public class mySQLQueries {
 		try {
 			stmt = con.createStatement();
 			rs = stmt.executeQuery(query1);
-			// rs=BR-0000001,Dell
+		
 			if (rs.next())
 				return true;
 			else
