@@ -20,7 +20,7 @@ public class mySQLQueries {
 
 		
 	public String getAutoID(String field, String table, String prefix) {
-		  if(table.equals("Question") || table.equals("Purchase"))
+		  if(table.equals("Question"))
               return connect.getPrimaryKey1(field, table, prefix);
           else
               return connect.getPrimaryKey2(field, table, prefix);

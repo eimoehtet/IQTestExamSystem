@@ -19,6 +19,7 @@ import Pack.DBConnection;
 import Pack.mySQLQueries;
 
 import javax.swing.JScrollPane;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -69,17 +70,25 @@ public class TestResult extends JPanel {
 			));
 		
 		scrollPane.setViewportView(resultTable);
+		combo.setEditable(true);
+		combo.setSelectedIndex(-1);
+		
 		combo.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
-				String id=combo.getSelectedItem().toString();
-				searchData(id);
+				
+				
+					String id=combo.getSelectedItem().toString();
+					searchData(id);
+				
+				
 			}
 		});
 		
 	
 		combo.setBounds(10, 56, 150, 25);
 		add(combo);
-		
+	
+	
 		JLabel lblNewLabel = new JLabel("Test Results");
 		lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 18));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -87,7 +96,7 @@ public class TestResult extends JPanel {
 		add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Search by Id");
-		lblNewLabel_1.setBounds(170, 59, 150, 19);
+		lblNewLabel_1.setBounds(170, 59, 81, 19);
 		add(lblNewLabel_1);
 		createTable();
 		loadResults();
@@ -161,8 +170,9 @@ public class TestResult extends JPanel {
 			while(rs.next()) {
 				results[0]=rs.getString(1);
 				results[1]=rs.getString(2);
-				results[4]=rs.getString(4);
-				results[5]=rs.getString(5);
+				results[4]=rs.getString(3);
+				results[5]=rs.getString(4);
+				results[6]=rs.getString(5);
 				int p1=rs.getInt(3);
 				int p2=rs.getInt(4);
 				int p3=rs.getInt(5);
@@ -181,8 +191,22 @@ public class TestResult extends JPanel {
 	public void searchData(String query) {
 		TableRowSorter<DefaultTableModel>tr=new TableRowSorter<DefaultTableModel>(dtm);
 		
-		String txt="-Selected-";
-		if(query.equals(txt)) {
+		
+		if(query.equals("-selected-")) {
+			resultTable.setRowSorter(tr);
+		}
+		else {
+			resultTable.setRowSorter(tr);
+			tr.setRowFilter(RowFilter.regexFilter(query));
+			
+			
+		}
+	}
+	public void searchDataByName(String query) {
+		TableRowSorter<DefaultTableModel>tr=new TableRowSorter<DefaultTableModel>(dtm);
+		
+		
+		if(query.equals(null)) {
 			resultTable.setRowSorter(tr);
 		}
 		else {
@@ -193,11 +217,11 @@ public class TestResult extends JPanel {
 		}
 	}
 	public void fillType() {
-		
-		combo.addItem("-Selected-");
+		combo.addItem("-selected-");
 		for(int i=0;i<dtm.getRowCount();i++) {
 			combo.addItem(dtm.getValueAt(i, 1));
 		}
 		
 	}
+	
 }

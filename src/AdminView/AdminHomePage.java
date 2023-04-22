@@ -37,6 +37,11 @@ public class AdminHomePage extends JFrame {
 	JPanel panel_2 = new JPanel();
 	JLabel lblAdmin = new JLabel("");
 	AdminLogin form=new AdminLogin();
+	JButton btnDashboard = new JButton("Dashboard");
+	JButton btnStudent = new JButton("Student");
+	JButton btnQuestions = new JButton("Questions");
+	JButton btnResult = new JButton("Test Results");
+	JButton btnLogout = new JButton("Logout");
 	/**
 	 * Launch the application.
 	 */
@@ -97,9 +102,16 @@ public class AdminHomePage extends JFrame {
 		dashboard.setBorder(new EmptyBorder(0, 0, 0, 0));
 		dashboard.setBackground(new Color(250, 250, 210));
 		
-		JButton btnStudent = new JButton("Student");
+		
 		btnStudent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				btnDashboard.setBackground(new Color(184, 134, 11));
+				btnResult.setBackground(new Color(184, 134, 11));
+				btnStudent.setBackground(getBackground().gray);
+				btnQuestions.setBackground(new Color(184, 134, 11));
+				btnResult.setBackground(new Color(184, 134, 11));
+				
 				listpanel.setVisible(true);
 				dashboard.setVisible(false);
 				resscrollPane.setVisible(false);
@@ -126,9 +138,15 @@ public class AdminHomePage extends JFrame {
 		btnStudent.setBounds(0, 60, 255, 50);
 		panel.add(btnStudent);
 		
-		JButton btnQuestions = new JButton("Questions");
+		
 		btnQuestions.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				btnDashboard.setBackground(new Color(184, 134, 11));
+				btnResult.setBackground(new Color(184, 134, 11));
+				btnStudent.setBackground(new Color(184, 134, 11));
+				btnQuestions.setBackground(getBackground().gray);
+				btnResult.setBackground(new Color(184, 134, 11));
 				
 				dashboard.setVisible(false);
 				listpanel.setVisible(false);
@@ -157,9 +175,17 @@ public class AdminHomePage extends JFrame {
 		panel.add(btnQuestions);
 		
 		
-		JButton btnResult = new JButton("Test Results");
+		
 		btnResult.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				btnDashboard.setBackground(new Color(184, 134, 11));
+				btnResult.setBackground(new Color(184, 134, 11));
+				btnStudent.setBackground(new Color(184, 134, 11));
+				btnQuestions.setBackground(new Color(184, 134, 11));
+				btnResult.setBackground(getBackground().gray);
+				
+				
 				resultpanel.setVisible(true);
 				dashboard.setVisible(false);
 				listpanel.setVisible(false);
@@ -184,9 +210,15 @@ public class AdminHomePage extends JFrame {
 		btnResult.setBounds(0, 180, 255, 50);
 		panel.add(btnResult);
 		
-		JButton btnDashboard = new JButton("Dashboard");
+		
 		btnDashboard.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				btnDashboard.setBackground(getBackground().gray);
+				btnResult.setBackground(new Color(184, 134, 11));
+				btnStudent.setBackground(new Color(184, 134, 11));
+				btnQuestions.setBackground(new Color(184, 134, 11));
+				
 				dashboard.setVisible(true);
 				dpanel.setVisible(true);
 				panel_2.setVisible(false);
@@ -201,9 +233,15 @@ public class AdminHomePage extends JFrame {
 		btnDashboard.setBounds(0, 1, 255, 50);
 		panel.add(btnDashboard);
 		
-		JButton btnLogout = new JButton("Logout");
+		
 		btnLogout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				btnDashboard.setBackground(new Color(184, 134, 11));
+				btnResult.setBackground(new Color(184, 134, 11));
+				btnStudent.setBackground(new Color(184, 134, 11));
+				btnQuestions.setBackground(new Color(184, 134, 11));
+				btnResult.setBackground(new Color(184, 134, 11));
+				
 				if(JOptionPane.showConfirmDialog(null,"Are you sure you want to exit?","Confirm exiting",
 						JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE)==JOptionPane.YES_OPTION) {
 					dispose();

@@ -57,7 +57,8 @@ public class Test extends JFrame {
 	JButton btnPre = new JButton("Previous");
 	JPanel bpanel = new JPanel();
 	JButton btnNext = new JButton("Next");
-	JButton btnReNext=new JButton("Next");
+	JButton btnReNext = new JButton("Next");
+	JButton btn=new JButton("Submit");
 	JLabel lblTimer = new JLabel("New label");
 	PreparedStatement pst;
 	ResultSet rs;
@@ -83,7 +84,8 @@ public class Test extends JFrame {
 	ArrayList p3Ans = new ArrayList<>();
 	String partId;
 	LoginForm form = new LoginForm();
-	static Thread thread=new Thread();
+	static Thread thread = new Thread();
+	Home hm = new Home();
 
 	/**
 	 * Launch the application.
@@ -206,11 +208,11 @@ public class Test extends JFrame {
 	}
 
 	public Test() {
-		setCountdown();
-		
+
+		btnPre.setVisible(false);
 		setUndecorated(true);
 		getRootPane().setWindowDecorationStyle(JRootPane.NONE);
-		
+
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		try {
@@ -218,16 +220,22 @@ public class Test extends JFrame {
 			Home home = new Home();
 
 			if (home.plClick) {
-				i=0;
+				home.btnP1.setEnabled(false);
+				setCountdown(3);
+				i = 0;
 				loadP1Questions();
 				increase();
 
 			} else if (home.p3Click) {
-				i=0;
+				home.btnP2.setEnabled(false);
+				setCountdown(5);
+				i = 0;
 				loadPart3Questions();
 				increase();
 			} else if (home.p2Click) {
-				i=0;
+				home.btnP3.setEnabled(false);
+				setCountdown(10);
+				i = 0;
 				loadPart2Questions();
 				increase();
 			}
@@ -256,9 +264,8 @@ public class Test extends JFrame {
 		bg.add(rdo4);
 		rdo1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				 givenAns=rdo1.getText();
-				 submitAnswered();
-				
+				givenAns = rdo1.getText();
+				submitAnswered();
 
 			}
 		});
@@ -268,8 +275,8 @@ public class Test extends JFrame {
 		rdo2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				 givenAns=rdo2.getText();
-				 submitAnswered();
+				givenAns = rdo2.getText();
+				submitAnswered();
 
 			}
 		});
@@ -278,8 +285,8 @@ public class Test extends JFrame {
 		testpanel.add(rdo2);
 		rdo3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				 givenAns=rdo3.getText();
-				 submitAnswered();
+				givenAns = rdo3.getText();
+				submitAnswered();
 
 			}
 		});
@@ -288,8 +295,8 @@ public class Test extends JFrame {
 		testpanel.add(rdo3);
 		rdo4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				 givenAns=rdo4.getText();
-				 submitAnswered();
+				givenAns = rdo4.getText();
+				submitAnswered();
 
 			}
 		});
@@ -308,19 +315,19 @@ public class Test extends JFrame {
 		btnPre.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				//btnNext.setVisible(false);
-				//btnReNext.setVisible(true);
-				
-				//updateAnswer();	
+				btnNext.setVisible(false);
+				btnReNext.setVisible(true);
 				lblNo.setText(String.valueOf(i));
-				if (i > 0) {
-					i--;
-					fillfield();
-					getUserAns();
-					
+
+				i--;
+				fillfield();
+				getUserAns();
+				if (i == 0) {
+					btnPre.setVisible(false);
 				}
 
 			}
+
 		});
 		bpanel.setLayout(null);
 		btnPre.setBounds(10, 5, 86, 23);
@@ -331,93 +338,93 @@ public class Test extends JFrame {
 		testpanel.add(lblId);
 		lblTimer.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 		lblTimer.setForeground(new Color(0, 0, 0));
-		
-		
+
 		lblTimer.setBounds(560, 15, 82, 14);
-		
-		
-		
+
 		testpanel.add(lblTimer);
-				//btnReNext.setBounds(626, 5, 86, 23);
-				//bpanel.add(btnReNext);
-						btnNext.setBounds(626, 5, 86, 23);
-						bpanel.add(btnNext);
+
+		btnNext.setBounds(626, 5, 86, 23);
+		bpanel.add(btnNext);
+		btnReNext.setBounds(626, 5, 86, 23);
+		bpanel.add(btnReNext);
+		btn.setBounds(626, 5, 86, 23);
+		bpanel.add(btn);
+		btnNext.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				btnReNext.setVisible(false);
+				increase();
+
+				btnPre.setVisible(true);
+				boolean isAlreadyAnswered = isAlreadyAnswered();
+				if (!isAlreadyAnswered) {
+					bg.clearSelection();
+				} else {
+					getUserAns();
+				}
 				
-						btnNext.addActionListener(new ActionListener() {
-							public void actionPerformed(ActionEvent e) {
-								//btnReNext.setVisible(false);
-								//isAnswered();
-								increase();
-								boolean isAlreadyAnswered=isAlreadyAnswered();
-								if(!isAlreadyAnswered) {
-									bg.clearSelection();
-								}else {
-									getUserAns();
-								}
-								
-//								submitAnswered();
-								
+
+			}
+		});
+
+		btnReNext.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
 				
-							}
-						});
-//				btnReNext.setVisible(false);
-//				btnReNext.addActionListener(new ActionListener() {
-//					public void actionPerformed(ActionEvent e) {
-//						increase();
-//						getUserAns();
-//						updateAnswer();
-//						
-//
-//					}
-//				});
-		
-		
+				reincrease();
+				
+				btnPre.setVisible(true);
+				boolean isAlreadyAnswered = isAlreadyAnswered();
+				if (!isAlreadyAnswered) {
+					bg.clearSelection();
+				} else {
+					getUserAns();
+				}
+				
+			}
+		});
+
 		createTable();
 
 	}
 
-
 	public void submitAnswered() {
-		
-			boolean alreadyAnswerd=isAlreadyAnswered();
-			if(!alreadyAnswerd) {
-				try {
-					
 
-					stmt = conn.createStatement();
+		boolean alreadyAnswerd = isAlreadyAnswered();
+		if (!alreadyAnswerd) {
+			try {
+
+				stmt = conn.createStatement();
 				String query1 = "Insert Into testDetail Values('" + form.data[0].toString() + "','" + lblId.getText()
-				+ "','" + givenAns + "','" + partId + "')";
+						+ "','" + givenAns + "','" + partId + "')";
 				if (stmt.executeUpdate(query1) == 1) {
 
 				} else {
 					JOptionPane.showMessageDialog(null, "fail");
 
 				}
-				} catch (SQLException e) {
-					System.out.println(e);
-					
-					e.printStackTrace();
-				}
-			}else {
-				String sql = "update testdetail set userans='" +givenAns+"',partId='"+partId+ "' where studentId='" + form.data[0].toString() + "'&& qId='"+lblId.getText()+"'";
-				try {
-					stmt=conn.createStatement();
-					int count=stmt.executeUpdate(sql);
-					if(count==1) {
-						JOptionPane.showMessageDialog(null, "Submitted ans");
-						
-					}else {
-						JOptionPane.showMessageDialog(null, "Something wrong");
-					}
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+			} catch (SQLException e) {
+				System.out.println(e);
+
+				e.printStackTrace();
 			}
+		} else {
+			String sql = "update testdetail set userans='" + givenAns + "',partId='" + partId + "' where studentId='"
+					+ form.data[0].toString() + "'&& qId='" + lblId.getText() + "'";
+			try {
+				stmt = conn.createStatement();
+				stmt.executeUpdate(sql);
+
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
 	}
 
 	public void getP3UserAnswers() {
-		String sql1 = "Select userans from testDetail where studentId= '" + form.data[0].toString() +  "'&& partId='QT-0000003'";
+		String sql1 = "Select userans from testDetail where studentId= '" + form.data[0].toString()
+				+ "'&& partId='QT-0000003'";
 
 		try {
 			ResultSet rs1 = stmt.executeQuery(sql1);
@@ -429,8 +436,10 @@ public class Test extends JFrame {
 			e.printStackTrace();
 		}
 	}
+
 	public void getP2UserAnswers() {
-		String sql1 = "Select userans from testDetail where studentId= '" + form.data[0].toString() + "'&& partId='QT-0000002'";
+		String sql1 = "Select userans from testDetail where studentId= '" + form.data[0].toString()
+				+ "'&& partId='QT-0000002'";
 
 		try {
 			ResultSet rs1 = stmt.executeQuery(sql1);
@@ -444,7 +453,8 @@ public class Test extends JFrame {
 	}
 
 	public void getP1UserAnswers() {
-		String sql1 = "Select userans from testDetail where studentId= '" + form.data[0].toString() + "'&& partId='QT-0000001'";
+		String sql1 = "Select userans from testDetail where studentId= '" + form.data[0].toString()
+				+ "'&& partId='QT-0000001'";
 
 		try {
 			ResultSet rs1 = stmt.executeQuery(sql1);
@@ -456,7 +466,6 @@ public class Test extends JFrame {
 			e.printStackTrace();
 		}
 	}
-
 
 	public void getP3Answers() {
 		String sql2 = "Select answer from question where qtId='QT-0000003'";
@@ -507,182 +516,202 @@ public class Test extends JFrame {
 		getP1UserAnswers();
 		getP2UserAnswers();
 		getP3UserAnswers();
-		
-		for (int i = 0; i <p1Ans.size(); i++) {
+
+		for (int i = 0; i < p1Ans.size(); i++) {
 			if (p1Ans.get(i).equals(p1userAns.get(i))) {
 				p1mark = p1mark + 1;
 			}
-			
+
 		}
-		if(p2userAns.size()>0) {
-			for (int i = 0; i<p2Ans.size(); i++) {
+		if (p2userAns.size() > 0) {
+			for (int i = 0; i < p2Ans.size(); i++) {
 
 				if (p2Ans.get(i).equals(p2userAns.get(i))) {
 					p2mark = p2mark + 1;
 				}
 			}
 		}
-		if(p3userAns.size()>0) {
+		if (p3userAns.size() > 0) {
 			for (int i = 0; i < p3Ans.size(); i++) {
 				if (p3Ans.get(i).equals(p3userAns.get(i))) {
 					p3mark = p3mark + 1;
 				}
 			}
 		}
-		
-
 
 	}
 
-	public void increase() {
-		lblNo.setText(String.valueOf(i + 1));
+	public void reincrease() {
+		i++;
+		lblNo.setText(String.valueOf(i+1));
 		if (i < dtm.getRowCount()) {
-			fillfield();
-			i++;
-
-		} else if (i == dtm.getRowCount()) {
-			testpanel.hide();
-			bpanel.hide();
-
-			JPanel panel = new JPanel();
-			panel.setBounds(10, 11, 752, 262);
-			contentPane.add(panel);
-			panel.setLayout(null);
-
-			JLabel lblNewLabel = new JLabel("You answerd all questions !\r\n");
-			lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-			lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 16));
-			lblNewLabel.setBounds(254, 41, 238, 35);
-			panel.add(lblNewLabel);
-
-			JButton btnCheck = new JButton("Previous");
-			btnCheck.setBounds(163, 96, 161, 35);
-			panel.add(btnCheck);
 			
-			btnCheck.addActionListener(new ActionListener() {
-
-				public void actionPerformed(ActionEvent e) {
-					panel.hide();
-					testpanel.show();
-					bpanel.show();
-					lblNo.setText(String.valueOf(dtm.getRowCount()));
-
-					if (i > 0) {
-						i--;
-						getUserAns();
-//						fillfield();
-						
-					}
-
-				}
-			});
-
-			JButton btnSubmit = new JButton("Submit");
-			btnSubmit.setBounds(408, 96, 145, 35);
-			btnSubmit.addActionListener(new ActionListener() {
-
-				public void actionPerformed(ActionEvent e) {
-					checkAnswer();
-					boolean exist=checkExistStudent();
-					if(!exist) {
-						String sql = "Insert Into testresult(stuId,part1,part2,part3) Values('" + form.data[0].toString()
-								+ "','" + p1mark + "','" + p2mark + "','" + p3mark + "')";
-						try {
-							if (stmt.executeUpdate(sql) == 1) {
-								JOptionPane.showMessageDialog(null, "Submitted");
-								dispose();
-							} else {
-								JOptionPane.showMessageDialog(null, "fail");
-
-							}
-						} catch (HeadlessException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						} catch (SQLException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-		
-
-					}else {
-						
-						String sql = "update testresult set part1='" +p1mark+"',part2='"+p2mark+"',part3='"+p3mark+ "' where stuId='" + form.data[0].toString()+"'";
-						try {
-							stmt=conn.createStatement();
-							int count=stmt.executeUpdate(sql);
-							if(count==1) {
-								JOptionPane.showMessageDialog(null, "Submitted");
-								dispose();
-								
-							}else {
-								JOptionPane.showMessageDialog(null, "Something wrong");
-							}
-						} catch (SQLException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-					}
-					
-					
-				}
-			});
-
-			panel.add(btnSubmit);
-			panel.show();
+			//i++;
+			fillfield();
+			
+			
+		} else {
+			dowhenindexlarge();
+			
 		}
 
 	}
+	public void increase() {
+
+		lblNo.setText(String.valueOf(i + 1));
+		if (i < dtm.getRowCount()) {
+
+			fillfield();
+			i++;
+		} else if (i == dtm.getRowCount()) 
+		{
+			dowhenindexlarge();
+		}
+			
+	}
+
+	public void dowhenindexlarge()	{
+		testpanel.hide();
+		bpanel.hide();
+
+		JPanel panel = new JPanel();
+		panel.setBounds(10, 11, 752, 262);
+		contentPane.add(panel);
+		panel.setLayout(null);
+
+		JLabel lblNewLabel = new JLabel("You answerd all questions !\r\n");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 16));
+		lblNewLabel.setBounds(254, 41, 238, 35);
+		panel.add(lblNewLabel);
+
+		JButton btnCheck = new JButton("Previous");
+		btnCheck.setBounds(163, 96, 161, 35);
+		panel.add(btnCheck);
+
+		btnCheck.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				panel.hide();
+				testpanel.show();
+				bpanel.show();
+				lblNo.setText(String.valueOf(dtm.getRowCount()));
+				i--;
+				getUserAns();
+
+			}
+		});
+
+		JButton btnSubmit = new JButton("Submit");
+		btnSubmit.setBounds(408, 96, 145, 35);
+		btnSubmit.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				checkAnswer();
+				boolean exist = checkExistStudent();
+				if (!exist) {
+					String sql = "Insert Into testresult(stuId,part1,part2,part3) Values('"
+							+ form.data[0].toString() + "','" + p1mark + "','" + p2mark + "','" + p3mark + "')";
+					try {
+						if (stmt.executeUpdate(sql) == 1) {
+							JOptionPane.showMessageDialog(null, "Submitted");
+							dispose();
+						} else {
+							JOptionPane.showMessageDialog(null, "fail");
+
+						}
+					} catch (HeadlessException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+
+				} else {
+
+					String sql = "update testresult set part1='" + p1mark + "',part2='" + p2mark + "',part3='"
+							+ p3mark + "' where stuId='" + form.data[0].toString() + "'";
+					try {
+						stmt = conn.createStatement();
+						int count = stmt.executeUpdate(sql);
+						if (count == 1) {
+							JOptionPane.showMessageDialog(null, "Submitted");
+							dispose();
+
+						} else {
+							JOptionPane.showMessageDialog(null, "Something wrong");
+						}
+					} catch (SQLException e1) {
+						
+						e1.printStackTrace();
+					}
+				}
+
+			}
+		});
+
+		panel.add(btnSubmit);
+		panel.show();
+	
+	
+	}
 	public boolean checkExistStudent() {
-		String sql="select * from testResult where stuId= '"+form.data[0].toString()+"'";
+		String sql = "select * from testResult where stuId= '" + form.data[0].toString() + "'";
 		try {
-			ResultSet rs=stmt.executeQuery(sql);
-			if(rs.next()) {
+			ResultSet rs = stmt.executeQuery(sql);
+			if (rs.next()) {
 				System.out.println(rs.next());
 				return true;
 			}
-				
-			else 
+
+			else
 				return false;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
 		}
-		
-		
+
 	}
 
-	public void setCountdown() {
+	public void setCountdown(int min) {
 		Timer timer = new Timer();
 		TimerTask task = new TimerTask() {
-		    int i = 60*2;
-		    public void run(){
-		        if (i >= 0) {
-		        	i--;
-		        	String time = String.format("%02d:%02d", i / 60, i % 60);
-		            lblTimer.setText("Timer " + time);
-		            
-		            if(i==0){
-			        	dispose();
-			        	JOptionPane.showMessageDialog(null, "Time's up!");
-			        	submit();
-		        }
-		        	
-		        	
-		        }
-		    }
+			int i = 60 * min;
+
+			public void run() {
+				if (i >= 0) {
+					i--;
+					if (i == 60) {
+						lblTimer.setForeground(getForeground().red);
+					}
+					String time = String.format("%02d:%02d", i / 60, i % 60);
+					lblTimer.setText("Timer " + time);
+
+					if (i == 0) {
+						JOptionPane.showMessageDialog(null, "Time's up!");
+						dispose();
+						submit();
+
+					}
+
+				}
+			}
 		};
 		timer.scheduleAtFixedRate(task, 0, 1000);
-		
+
 	}
+
 	public boolean isAlreadyAnswered() {
-		String sql = "Select userans from testDetail where studentId= '" + form.data[0].toString() +  "'&& qId='"+lblId.getText()+"'";
+		String sql = "Select userans from testDetail where studentId= '" + form.data[0].toString() + "'&& qId='"
+				+ lblId.getText() + "'";
 		try {
-			ResultSet rs=stmt.executeQuery(sql);
-			if(rs.next()) {
+			ResultSet rs = stmt.executeQuery(sql);
+			if (rs.next()) {
 				return true;
 			}
-				
-			else 
+
+			else
 				return false;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -692,7 +721,8 @@ public class Test extends JFrame {
 	}
 
 	public void fillfield() {
-
+		
+		//lblNo.setText(String.valueOf(i+1));
 		lblId.setText(dtm.getValueAt(i, 0).toString());
 		partId = dtm.getValueAt(i, 1).toString();
 		textArea.setText(dtm.getValueAt(i, 2).toString());
@@ -723,42 +753,41 @@ public class Test extends JFrame {
 
 	public void getUserAns() {
 		String q[] = new String[1];
-		System.out.println("qId:"+lblId.getText()+"stId:"+form.data[0].toString());
+		System.out.println("qId:" + lblId.getText() + "stId:" + form.data[0].toString());
 		String sql1 = "Select userans from testDetail where qId='" + lblId.getText() + "'&& studentId= '"
 				+ form.data[0].toString() + "'";
 		try {
 			ResultSet rs = stmt.executeQuery(sql1);
 			if (rs.next()) {
-				
+
 				if (rs.getString(1).equals(rdo1.getText())) {
 					rdo1.setSelected(true);
-					givenAns=rdo1.getText();
+					givenAns = rdo1.getText();
 				} else if (rs.getString(1).equals(rdo2.getText())) {
 					rdo2.setSelected(true);
-					givenAns=rdo2.getText();
+					givenAns = rdo2.getText();
 				} else if (rs.getString(1).equals(rdo3.getText())) {
 					rdo3.setSelected(true);
-					givenAns=rdo3.getText();
+					givenAns = rdo3.getText();
 				} else if (rs.getString(1).equals(rdo4.getText())) {
 					rdo4.setSelected(true);
-					givenAns=rdo4.getText();
+					givenAns = rdo4.getText();
 				} else {
 					JOptionPane.showMessageDialog(null, "something wrong");
 				}
-			} else {
-				JOptionPane.showMessageDialog(null, "cannot retrieve");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
 	}
+
 	public void submit() {
 		checkAnswer();
-		boolean exist=checkExistStudent();
-		if(!exist) {
-			String sql = "Insert Into testresult(stuId,part1,part2,part3) Values('" + form.data[0].toString()
-					+ "','" + p1mark + "','" + p2mark + "','" + p3mark + "')";
+		boolean exist = checkExistStudent();
+		if (!exist) {
+			String sql = "Insert Into testresult(stuId,part1,part2,part3) Values('" + form.data[0].toString() + "','"
+					+ p1mark + "','" + p2mark + "','" + p3mark + "')";
 			try {
 				if (stmt.executeUpdate(sql) == 1) {
 					dispose();
@@ -774,18 +803,18 @@ public class Test extends JFrame {
 				e1.printStackTrace();
 			}
 
+		} else {
 
-		}else {
-			
-			String sql = "update testresult set part1='" +p1mark+"',part2='"+p2mark+"',part3='"+p3mark+ "' where stuId='" + form.data[0].toString()+"'";
+			String sql = "update testresult set part1='" + p1mark + "',part2='" + p2mark + "',part3='" + p3mark
+					+ "' where stuId='" + form.data[0].toString() + "'";
 			try {
-				stmt=conn.createStatement();
-				int count=stmt.executeUpdate(sql);
-				if(count==1) {
+				stmt = conn.createStatement();
+				int count = stmt.executeUpdate(sql);
+				if (count == 1) {
 					JOptionPane.showMessageDialog(null, "Submitted");
 					dispose();
-					
-				}else {
+
+				} else {
 					JOptionPane.showMessageDialog(null, "Something wrong");
 				}
 			} catch (SQLException e1) {
@@ -793,10 +822,7 @@ public class Test extends JFrame {
 				e1.printStackTrace();
 			}
 		}
-		
-		
-	}
-
 
 	}
 
+}
