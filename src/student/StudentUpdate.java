@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
 import Pack.Checking;
 import Pack.DBConnection;
@@ -33,11 +34,11 @@ public class StudentUpdate extends JDialog {
 	private JTextField txtAddress=new JTextField();
 	private JTextField txtEmail=new JTextField();
 	private JLabel lblStudentId = new JLabel();
-	
-
+	StuListPanel list=new StuListPanel();
 	mySQLQueries msql = new mySQLQueries();
 	Connection conn;
 	DBConnection db=new DBConnection();
+	public static String[]st=new String[5];
 	/**
 	 * Launch the application.
 	 */
@@ -56,10 +57,8 @@ public class StudentUpdate extends JDialog {
 	 * @throws ClassNotFoundException 
 	 */
 	public void getStudent() {
-		StuListPanel list=new StuListPanel();
-		for(int i=0;i<6;i++) {
-			System.out.println(list.st[i]);
-		}
+	
+		
 		lblStudentId.setText(list.st[0]);
 		txtStudentName.setText(list.st[1]);
 		txtNrc.setText(list.st[2]);
@@ -169,7 +168,7 @@ public class StudentUpdate extends JDialog {
 					txtAddress.requestFocus();
 					txtAddress.selectAll();
 				}else {
-					String[]st=new String[5];
+					
 					st[0]=txtStudentName.getText();
 					st[1]=txtNrc.getText();
 					st[2]=txtEmail.getText();
@@ -177,10 +176,12 @@ public class StudentUpdate extends JDialog {
 					st[4]=txtAddress.getText();
 					boolean save=msql.updateRecord("Student",lblStudentId.getText(), st);
 					if(save) {
+						
+						//list.refresh();
 						JOptionPane.showMessageDialog(null, "Updated Record successfully");
-					
 						clear();
 						txtStudentName.requestFocus();
+						
 					}else {
 						JOptionPane.showMessageDialog(null, "Failed to update record");
 						
@@ -225,4 +226,5 @@ public class StudentUpdate extends JDialog {
 		txtAddress.setText("");
 		
 	}
+
 }

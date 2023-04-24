@@ -35,17 +35,19 @@ import javax.swing.border.LineBorder;
 public class StuListPanel extends JPanel {
 
 	
-	DefaultTableModel dtm=new DefaultTableModel();
+	public DefaultTableModel dtm=new DefaultTableModel();
 	PreparedStatement pst;
 	ResultSet rs;
-	Connection conn=null;
-	private JTable table = new JTable();
+	static Connection conn=null;
+	public  JTable table = new JTable();
 	mySQLQueries msql=new mySQLQueries();
 	public static String []st=new String[6];
 	/**
 	 * Create the panel.
 	 */
+	
 	public StuListPanel() {
+		
 		setBorder(null);
 		setBackground(SystemColor.textHighlightText);
 		
@@ -75,6 +77,7 @@ public class StuListPanel extends JPanel {
 				"ID", "Name", "NRC", "Email", "Phone", "Address"
 			}
 		));
+	
 		table.addMouseListener(new MouseAdapter() {
 			   @Override
 			    public void mouseClicked(final MouseEvent e) {
@@ -94,6 +97,7 @@ public class StuListPanel extends JPanel {
 			            st[3]=email;
 			            st[4]=phone;
 			            st[5]=address;
+			            
 
 			        }
 			   }
@@ -113,6 +117,7 @@ public class StuListPanel extends JPanel {
 						
 						updateform.show();
 						
+						
 					}
 				}
 			
@@ -126,17 +131,18 @@ public class StuListPanel extends JPanel {
 		btnDelete.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("delete call");
+				
 				if(table.getSelectedRow()<0) {
 					JOptionPane.showMessageDialog(null, "Please select row to delete");
 				}else {
-					System.out.println("else work");
 					
-					if(JOptionPane.showConfirmDialog(null,"Are you sure you want to exit?","Confirm exiting",
+					
+					if(JOptionPane.showConfirmDialog(null,"Are you sure you want to delete?","Confirm deleting",
 							JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE)==JOptionPane.YES_OPTION)
 					{
 						
 						msql.deleteRecord("Student",st[0]);
+						dtm.removeRow(table.getSelectedRow());
 					}
 				
 					
@@ -151,9 +157,8 @@ public class StuListPanel extends JPanel {
 		btnRefresh.setForeground(new Color(255, 250, 250));
 		btnRefresh.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
-				tableModel.setRowCount(0);
-				loadStudents();
+
+				refresh();
 			}
 		});
 		btnRefresh.setBounds(500, 424, 89, 34);
@@ -212,25 +217,28 @@ public class StuListPanel extends JPanel {
 		TableColumn tc=tcm.getColumn(index);
 		tc.setPreferredWidth(width);
 	}
-
-public void loadStudents() {
-		System.out.println("called");
+public void refresh() {
+	dtm = (DefaultTableModel) table.getModel();
+	dtm.setRowCount(0);
+	loadStudents();
+	
+}
+public  void loadStudents() {
+		
 		String[] students=new String[6];
-		String strquery[]=new String[6];
 		try {
 			Statement stmt= conn.createStatement();
 			String str="select * from Student";
 			ResultSet rs=stmt.executeQuery(str);
 			
 			while(rs.next()) {
-				//System.out.print(rs.getString(1));
+				
 				students[0]=rs.getString(1);
 				students[1]=rs.getString(2);
 				students[2]=rs.getString(3);
 				students[3]=rs.getString(4);
 				students[4]=rs.getString(5);
 				students[5]=rs.getString(6);
-				
 				
 				dtm.addRow(students);
 			}

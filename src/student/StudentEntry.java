@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
 import Pack.Checking;
 import Pack.mySQLQueries;
@@ -28,8 +29,9 @@ public class StudentEntry extends JDialog {
 	private JTextField txtAddress;
 	private JTextField txtEmail;
 	private JLabel lblStudentId = new JLabel();
-
+	StuListPanel list=new StuListPanel();
 	mySQLQueries msql = new mySQLQueries();
+	
 
 	/**
 	 * Launch the application.
@@ -167,6 +169,8 @@ public class StudentEntry extends JDialog {
 					st[5]=txtAddress.getText();
 					boolean save=msql.insertData("Student", st);
 					if(save) {
+						
+						//list.refresh(st);
 						JOptionPane.showMessageDialog(null, "Saved Record successfully");
 						AutoID();
 						clear();
